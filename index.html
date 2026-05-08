@@ -1,871 +1,648 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Esra'nın Sağlık Asistanı</title>
-    <!-- Tailwind CSS (CDN) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons (CDN) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Tailwind Custom Config & Animations -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    animation: {
-                        'bounce-short': 'bounce 1s ease-in-out 3',
-                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
-                        'scan': 'scan 2s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        scan: {
-                            '0%': { top: '0%', opacity: '0' },
-                            '10%': { opacity: '1' },
-                            '90%': { opacity: '1' },
-                            '100%': { top: '100%', opacity: '0' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        /* Confetti Animation */
-        @keyframes confetti-fall {
-            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-        .confetti-piece {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            animation: confetti-fall 3s linear forwards;
-            z-index: 0;
-            pointer-events: none;
-        }
-        /* Hide scrollbar for cleaner look */
-        ::-webkit-scrollbar { display: none; }
-        * { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Şifâhen - Manevi Şifa ve Ruhsal Bakım</title>
+  <meta name="description" content="Şifâhen; ruh hâline göre ayet dinletileri, dua seçkileri, namaz vakitleri ve manevi farkındalık araçları sunan mobil uygulamadır.">
+  <meta property="og:title" content="Şifâhen">
+  <meta property="og:description" content="Ruh hâline göre ayet dinletileri, dualar ve manevi destek araçları.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/app-icon.png">
+  <link rel="icon" href="assets/app-icon.png">
+  <style>
+    :root {
+      --bg: #f8f3ea;
+      --surface: #fffaf2;
+      --surface-strong: #efe5d2;
+      --primary: #173c2f;
+      --primary-soft: #254f3b;
+      --text: #102019;
+      --muted: #646b60;
+      --line: #ded3c1;
+      --gold: #d7b866;
+      --rose: #d25050;
+      --sage: #dce8d9;
+      --shadow: 0 26px 70px rgba(17, 32, 25, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page-shell {
+      overflow: hidden;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(248, 243, 234, 0.92);
+      border-bottom: 1px solid rgba(222, 211, 193, 0.8);
+      backdrop-filter: blur(14px);
+    }
+
+    .nav-inner {
+      width: min(1120px, calc(100% - 32px));
+      height: 72px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+    }
+
+    .brand strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.15rem;
+      line-height: 1.1;
+    }
+
+    .brand span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-top: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 20px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .button.primary {
+      background: var(--primary);
+      color: #fffaf2;
+      box-shadow: 0 16px 32px rgba(23, 60, 47, 0.24);
+    }
+
+    .button.secondary {
+      border-color: var(--line);
+      color: var(--primary);
+      background: rgba(255, 250, 242, 0.7);
+    }
+
+    .hero {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: minmax(0, 0.96fr) minmax(360px, 0.84fr);
+      gap: 46px;
+      align-items: center;
+      padding: 56px 0 40px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--sage);
+      color: var(--primary);
+      font-weight: 750;
+      font-size: 0.92rem;
+    }
+
+    .hero h1 {
+      margin: 24px 0 18px;
+      color: var(--primary);
+      font-size: clamp(3.2rem, 9vw, 6.8rem);
+      line-height: 0.94;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: clamp(1.08rem, 2.5vw, 1.32rem);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 34px;
+      max-width: 660px;
+    }
+
+    .trust-item {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 250, 242, 0.72);
+    }
+
+    .trust-item strong {
+      display: block;
+      color: var(--primary);
+      font-size: 1.04rem;
+    }
+
+    .trust-item span {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .phone-stage {
+      position: relative;
+      min-height: 700px;
+      display: grid;
+      place-items: center;
+    }
+
+    .arch-band {
+      position: absolute;
+      inset: auto -140px 0 -110px;
+      height: 290px;
+      background: var(--surface-strong);
+      border-radius: 56px 56px 0 0;
+    }
+
+    .arch-band::before {
+      content: "";
+      position: absolute;
+      inset: 44px 0 0;
+      background:
+        repeating-radial-gradient(circle at 80px 100%, transparent 0 82px, rgba(203, 182, 125, 0.34) 84px 86px, transparent 88px 180px);
+      opacity: 0.75;
+    }
+
+    .phone {
+      position: relative;
+      width: min(390px, 86vw);
+      aspect-ratio: 9 / 18.7;
+      padding: 16px;
+      border-radius: 48px;
+      background: #10251d;
+      border: 3px solid rgba(215, 184, 102, 0.5);
+      box-shadow: var(--shadow);
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 50%;
+      width: 78px;
+      height: 8px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: rgba(215, 184, 102, 0.65);
+      z-index: 2;
+    }
+
+    .phone img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 36px;
+      background: var(--surface);
+    }
+
+    .section {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 80px 0;
+    }
+
+    .section-header {
+      max-width: 760px;
+      margin-bottom: 34px;
+    }
+
+    .section h2 {
+      margin: 0 0 12px;
+      color: var(--primary);
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.04;
+    }
+
+    .section-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.12rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .feature {
+      min-height: 196px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+
+    .feature .icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 18px;
+      border-radius: 14px;
+      background: var(--sage);
+      color: var(--primary);
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+
+    .feature h3 {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .feature p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .showcase {
+      background: var(--primary);
+      color: #fffaf2;
+    }
+
+    .showcase .section {
+      padding: 86px 0;
+    }
+
+    .showcase h2 {
+      color: #fffaf2;
+    }
+
+    .showcase .section-header p {
+      color: #eadfcb;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .showcase-shot {
+      overflow: hidden;
+      border-radius: 18px;
+      border: 1px solid rgba(215, 184, 102, 0.35);
+      background: rgba(255, 250, 242, 0.08);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.22);
+    }
+
+    .showcase-shot img {
+      width: 100%;
+      height: auto;
+    }
+
+    .safety {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .safety-card {
+      padding: 28px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .safety-card.strong {
+      background: var(--primary);
+      color: #fffaf2;
+      border-color: var(--primary);
+    }
+
+    .safety-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.5rem;
+      color: inherit;
+    }
+
+    .safety-card p {
+      margin: 0;
+      color: inherit;
+      opacity: 0.9;
+    }
+
+    .footer {
+      background: #102019;
+      color: #f8f3ea;
+      padding: 46px 0;
+    }
+
+    .footer-inner {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .footer a {
+      color: #e8d8af;
+      font-weight: 700;
+    }
+
+    .footer p {
+      margin: 0;
+      color: rgba(248, 243, 234, 0.78);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 38px;
+      }
+
+      .phone-stage {
+        min-height: 560px;
+      }
+
+      .trust-row,
+      .feature-grid,
+      .showcase-grid,
+      .safety {
+        grid-template-columns: 1fr;
+      }
+
+      .showcase-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 12px;
+      }
+
+      .showcase-shot {
+        flex: 0 0 72%;
+        scroll-snap-align: start;
+      }
+
+      .footer-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .nav-inner {
+        height: 66px;
+      }
+
+      .brand span {
+        display: none;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      .hero h1 {
+        font-size: 3.6rem;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .phone-stage {
+        min-height: 500px;
+      }
+
+      .phone {
+        width: min(330px, 88vw);
+      }
+    }
+  </style>
 </head>
-<body class="bg-slate-100 flex justify-center font-sans min-h-screen">
-
-    <!-- Mobile Device Container -->
-    <div id="app-container" class="w-full max-w-md bg-rose-50 min-h-screen shadow-2xl relative overflow-hidden flex flex-col transition-colors duration-700">
-        
-        <!-- Confetti Container -->
-        <div id="confetti-container" class="absolute inset-0 z-0 pointer-events-none overflow-hidden hidden"></div>
-
-        <!-- Header -->
-        <header id="app-header" class="bg-white/80 text-slate-800 backdrop-blur-md px-6 py-4 flex justify-between items-center shadow-sm z-10 rounded-b-3xl transition-colors duration-700">
-            <div class="flex items-center gap-3">
-                <div id="header-avatar" class="text-3xl filter drop-shadow-md transition-transform duration-300 hover:scale-110">👩‍⚕️</div>
-                <div>
-                    <h1 class="text-xl font-bold">Merhaba, Esra Sultan</h1>
-                    <p id="header-subtitle" class="text-xs text-rose-500 font-medium">Hedef: Taşı Düşür, İnsülini Kır!</p>
-                </div>
-            </div>
-            <div class="flex gap-2">
-                <button id="btn-voice" class="p-2 rounded-full transition bg-slate-200 text-slate-500" onclick="toggleVoice()">
-                    <i data-lucide="volume-x" id="icon-voice"></i>
-                </button>
-                <button class="relative p-2 bg-white/50 rounded-full transition" onclick="triggerRandomToughLove()">
-                    <i data-lucide="bell"></i>
-                    <span class="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white animate-pulse"></span>
-                </button>
-            </div>
-        </header>
-
-        <!-- Push Notification Banner -->
-        <div id="push-banner" class="bg-blue-600 text-white px-4 py-3 flex items-center justify-between text-xs z-20 hidden">
-            <span class="flex items-center gap-2"><i data-lucide="bell-ring" class="w-4 h-4"></i> Arkada planda da uyarı istersen bildirimleri aç:</span>
-            <button onclick="requestPushPermission()" class="bg-white text-blue-600 px-3 py-1 rounded-full font-bold">Aç</button>
+<body>
+  <div class="page-shell">
+    <nav class="nav" aria-label="Ana navigasyon">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="Şifâhen ana sayfa">
+          <img src="assets/app-icon.png" alt="Şifâhen logosu">
+          <span>
+            <strong>Şifâhen</strong>
+            <span>Manevi Şifa ve Ruhsal Bakım</span>
+          </span>
+        </a>
+        <div class="nav-links">
+          <a href="#ozellikler">Özellikler</a>
+          <a href="#ekranlar">Ekranlar</a>
+          <a href="#guvenlik">Güvenlik</a>
+          <a href="privacy-policy.html">Gizlilik</a>
         </div>
+      </div>
+    </nav>
 
-        <!-- Toast Notification -->
-        <div id="toast" class="absolute top-24 left-4 right-4 bg-white border-l-4 border-rose-500 p-4 rounded-xl shadow-lg z-50 animate-bounce-short flex items-start gap-3 hidden transition-opacity">
-            <div class="bg-rose-100 p-2 rounded-full text-rose-500 mt-1">
-                <i data-lucide="activity" class="w-4 h-4"></i>
+    <main id="top">
+      <section class="hero">
+        <div>
+          <span class="eyebrow">Kur'an dinletileri • dualar • manevi farkındalık</span>
+          <h1>Şifâhen</h1>
+          <p class="hero-copy">
+            Ruh hâline göre ayet seçkileri, dua başlıkları, namaz vakitleri ve günlük farkındalık araçlarını sade bir mobil deneyimde bir araya getirir.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#ekranlar">Uygulamayı incele</a>
+            <a class="button secondary" href="privacy-policy.html">Gizlilik politikasını gör</a>
+          </div>
+          <div class="trust-row" aria-label="Uygulama ilkeleri">
+            <div class="trust-item">
+              <strong>Tek ana akış</strong>
+              <span>Önce ayet seçkisi, sonra isteğe bağlı destek.</span>
             </div>
-            <div>
-                <h4 class="font-bold text-sm text-slate-800">Diyetisyen Mesajı</h4>
-                <p id="toast-msg" class="text-sm text-slate-600 leading-snug"></p>
+            <div class="trust-item">
+              <strong>Sade dil</strong>
+              <span>Fetva veya tedavi iddiası kurmayan destek dili.</span>
             </div>
+            <div class="trust-item">
+              <strong>Kontrol sende</strong>
+              <span>Favoriler, geçmiş, bildirimler ve gizlilik alanları.</span>
+            </div>
+          </div>
         </div>
+        <div class="phone-stage" aria-hidden="true">
+          <div class="arch-band"></div>
+          <div class="phone">
+            <img src="assets/store-01.png" alt="">
+          </div>
+        </div>
+      </section>
 
-        <!-- Main Content Area -->
-        <main class="flex-1 overflow-y-auto pb-24 relative z-10">
-            
-            <!-- TAB 1: MEALS (Öğünler) -->
-            <section id="tab-meals" class="h-full flex flex-col items-center justify-center p-6 relative">
-                
-                <!-- Med Reminder Modal -->
-                <div id="med-reminder" class="absolute inset-0 z-50 bg-white/90 backdrop-blur flex items-center justify-center p-6 hidden">
-                    <div class="bg-amber-50 border-2 border-amber-200 p-6 rounded-3xl shadow-xl text-center animate-pulse">
-                        <div class="bg-amber-100 w-16 h-16 mx-auto rounded-full flex items-center justify-center mb-4 text-amber-600">
-                            <i data-lucide="pill" class="w-8 h-8"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-amber-800 mb-2">İlaç Vakti!</h3>
-                        <p class="text-amber-700 font-medium leading-relaxed">Gastrit geçmişin için mideni korumalıyız, İnositol ve D Vitaminini şimdi <b>tok karnına</b> iç!</p>
-                    </div>
-                </div>
+      <section id="ozellikler" class="section">
+        <div class="section-header">
+          <h2>Manevi destek için düzenli ve sakin bir yapı.</h2>
+          <p>Şifâhen, kullanıcının karar yükünü azaltan, kaynaklı içerikleri taşıyan ve hassas alanlarda güvenlik bariyerlerini koruyan bir deneyim sunar.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="icon">01</div>
+            <h3>Ruh hâline göre ayet rotaları</h3>
+            <p>Endişe, umut, sabır, rahmet ve benzeri hâller için kısa ayet seçkileriyle dinleme akışı.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">02</div>
+            <h3>Dua ve Kur'an alanı</h3>
+            <p>Dua başlıkları, sure/cüz/sayfa erişimi, okuma geçmişi ve favorilerle düzenli takip.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">03</div>
+            <h3>Namaz vakitleri</h3>
+            <p>Konum iznine bağlı vakit gösterimi ve bildirim ayarlarıyla günlük ritme destek.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">04</div>
+            <h3>Keşfet ve pratikler</h3>
+            <p>Günlük muhâsebe, murakabe, hâl haritası, mizâç farkındalığı ve benzeri araçlar.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">05</div>
+            <h3>Dinleme deneyimi</h3>
+            <p>Meal, kıraat, oynatma hızı, favoriler ve doğa sesleri tek ekranda sadeleşir.</p>
+          </article>
+          <article class="feature">
+            <div class="icon">06</div>
+            <h3>Premium hazırlığı</h3>
+            <p>Premium erişim Google Play Billing üzerinden yönetilir; manuel açma kapama yoktur.</p>
+          </article>
+        </div>
+      </section>
 
-                <div class="w-full text-center mb-6">
-                    <h2 class="text-2xl font-black text-slate-700 tracking-tight">Ne Yiyoruz?</h2>
-                    <p class="text-slate-500 text-sm">Kararını ver, sağa veya sola kaydır.</p>
-                </div>
+      <section id="ekranlar" class="showcase">
+        <div class="section">
+          <div class="section-header">
+            <h2>Ekranlar Google Play için hazır.</h2>
+            <p>Uygulamanın ana akışı, player, keşfet ve Kur'an bölümleri mağaza görselleriyle tutarlı bir görsel dile sahiptir.</p>
+          </div>
+          <div class="showcase-grid">
+            <figure class="showcase-shot">
+              <img src="assets/store-01.png" alt="Şifâhen ana ekran Google Play görseli">
+            </figure>
+            <figure class="showcase-shot">
+              <img src="assets/store-04.png" alt="Şifâhen oynatıcı Google Play görseli">
+            </figure>
+            <figure class="showcase-shot">
+              <img src="assets/store-05.png" alt="Şifâhen keşfet Google Play görseli">
+            </figure>
+            <figure class="showcase-shot">
+              <img src="assets/store-06.png" alt="Şifâhen Kur'an erişimi Google Play görseli">
+            </figure>
+          </div>
+        </div>
+      </section>
 
-                <!-- Swipe Card -->
-                <div id="swipe-card" class="w-full max-w-sm aspect-[4/5] bg-white rounded-[2rem] shadow-2xl border-4 border-white flex flex-col items-center justify-center p-6 relative transition-all duration-300">
-                    <span id="meal-type" class="absolute top-4 left-4 bg-teal-100 text-teal-700 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Sabah</span>
-                    <div id="meal-img" class="text-8xl mb-6 drop-shadow-xl">🥗</div>
-                    <h3 id="meal-name" class="text-2xl font-bold text-slate-800 text-center mb-2 leading-tight">Haşlanmış Yumurtalı Cevizli Yeşillik</h3>
-                    <p id="meal-desc" class="text-slate-500 text-center text-sm px-4">Glisemik indeksi düşük, insülin direncine kalkan!</p>
-                    <div class="absolute bottom-6 flex gap-12 text-slate-300 text-xs font-bold uppercase tracking-widest">
-                        <span>&larr; Pas</span>
-                        <span>Yiycem &rarr;</span>
-                    </div>
-                </div>
+      <section id="guvenlik" class="section">
+        <div class="section-header">
+          <h2>Hassas konularda net sınırlar.</h2>
+          <p>Şifâhen, manevi destek sunarken tıbbi veya dini otorite iddiası kurmayan dikkatli bir dil ve yapı kullanır.</p>
+        </div>
+        <div class="safety">
+          <article class="safety-card strong">
+            <h3>Manevi destek aracıdır.</h3>
+            <p>Uygulama tıbbi tanı, tedavi veya fetva hizmeti sunmaz. PHQ/GAD gibi araçlar tarama amaçlıdır, tanı koymaz.</p>
+          </article>
+          <article class="safety-card">
+            <h3>Acil durumda uygulama yeterli değildir.</h3>
+            <p>Kriz veya acil sağlık durumlarında 112 kullanılmalıdır. Klinik tanı ve tedavi için uzman desteği alınmalıdır; sağlık randevusu için 182 kullanılabilir.</p>
+          </article>
+        </div>
+      </section>
+    </main>
 
-                <div class="flex justify-center gap-6 mt-10 w-full px-8">
-                    <button onclick="handleSwipe('left')" class="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center text-rose-500 hover:bg-rose-50 hover:scale-110 transition-all border border-slate-100">
-                        <i data-lucide="x" class="w-8 h-8" stroke-width="3"></i>
-                    </button>
-                    <button onclick="handleSwipe('right')" class="w-16 h-16 bg-gradient-to-tr from-teal-400 to-emerald-400 rounded-full shadow-[0_10px_20px_rgba(45,212,191,0.4)] flex items-center justify-center text-white hover:scale-110 transition-all">
-                        <i data-lucide="heart" class="w-8 h-8" stroke-width="3" fill="currentColor"></i>
-                    </button>
-                </div>
-            </section>
-
-            <!-- CAMERA MODULE (Hidden by default, overlays meals) -->
-            <section id="tab-camera" class="h-full bg-slate-900 flex flex-col items-center justify-center p-6 text-white relative z-50 hidden">
-                <h2 class="text-2xl font-bold mb-2">Tabağını Göreyim! 📸</h2>
-                <p class="text-slate-400 text-center mb-6 text-sm">Gerçekten o tabağı mı yiyorsun? Yapay zeka ile kaloriyi ve karbonhidratı analiz edelim.</p>
-                
-                <div class="w-full max-w-sm aspect-square bg-slate-800 rounded-3xl overflow-hidden relative border-4 border-slate-700 flex items-center justify-center">
-                    <!-- Initial State -->
-                    <video id="camera-video" autoplay playsinline class="w-full h-full object-cover hidden"></video>
-                    <canvas id="camera-canvas" class="hidden"></canvas>
-                    <img id="camera-preview" class="w-full h-full object-cover filter brightness-75 hidden" />
-                    
-                    <div id="camera-waiting" class="absolute text-slate-500 flex flex-col items-center">
-                        <i data-lucide="camera" class="w-12 h-12 mb-2 opacity-50"></i> Kamera Bekleniyor
-                    </div>
-                    
-                    <div id="camera-viewfinder" class="absolute inset-4 border-2 border-dashed border-white/40 rounded-xl pointer-events-none hidden"></div>
-                    
-                    <!-- AI Scanning Effect -->
-                    <div id="ai-scanner" class="absolute inset-0 bg-teal-500/20 flex flex-col items-center justify-center z-10 backdrop-blur-sm hidden">
-                        <i data-lucide="scan-search" class="w-12 h-12 text-teal-300 animate-pulse mb-4"></i>
-                        <div class="w-full h-1 bg-teal-400/50 absolute top-0 animate-scan"></div>
-                        <span class="font-bold text-teal-100 bg-slate-900/50 px-4 py-2 rounded-full text-sm">Yapay Zeka Analiz Ediyor...</span>
-                    </div>
-
-                    <!-- AI Result Overlay -->
-                    <div id="ai-result-modal" class="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-700 shadow-2xl animate-fade-in-up hidden">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div id="ai-result-dot" class="w-3 h-3 rounded-full animate-pulse"></div>
-                            <h4 id="ai-result-title" class="font-bold text-white">Sonuç</h4>
-                        </div>
-                        <p id="ai-result-desc" class="text-xs text-slate-300 leading-relaxed">Açıklama</p>
-                    </div>
-                </div>
-
-                <div class="mt-8 h-20 flex items-center justify-center w-full">
-                    <button id="btn-capture" onclick="capturePhoto()" class="w-20 h-20 bg-white rounded-full flex items-center justify-center text-slate-900 shadow-[0_0_0_4px_rgba(255,255,255,0.3)]">
-                        <div class="w-16 h-16 border-2 border-slate-900 rounded-full flex items-center justify-center">
-                            <i data-lucide="camera" class="w-8 h-8"></i>
-                        </div>
-                    </button>
-                    <button id="btn-confirm-meal" onclick="closeCamera()" class="px-8 py-4 text-white rounded-full font-bold shadow-lg flex items-center gap-2 transition-colors hidden">
-                        <i data-lucide="check"></i> <span id="confirm-meal-text">Onayla ve Ye!</span>
-                    </button>
-                </div>
-            </section>
-
-            <!-- TAB 2: WATER (Su/Taş) -->
-            <section id="tab-water" class="h-full flex flex-col p-6 relative hidden">
-                <div class="text-center z-10 relative bg-white/50 backdrop-blur-sm p-4 rounded-3xl mt-4">
-                    <h2 class="text-2xl font-black text-blue-900 mb-1">Taşı Yok Et!</h2>
-                    <p class="text-blue-700/70 text-sm font-medium">Böbrekteki 5mm'lik misafiri suyla aşındırıyoruz.</p>
-                </div>
-
-                <div class="flex-1 relative flex items-center justify-center mt-8">
-                    <!-- Background fill -->
-                    <div id="water-fill" class="absolute bottom-0 left-0 right-0 bg-blue-300/30 rounded-t-[100px] transition-all duration-1000 ease-in-out z-0" style="height: 10%; min-height: 10%;"></div>
-                    
-                    <!-- SVG Stone -->
-                    <div id="stone-container" class="relative z-10 flex flex-col items-center justify-center transition-all duration-700 ease-out" style="transform: scale(1);">
-                        <svg width="150" height="150" viewBox="0 0 100 100" class="drop-shadow-2xl text-slate-700">
-                            <path d="M50 5 C30 10, 10 30, 15 60 C20 80, 40 95, 60 90 C80 85, 95 65, 85 40 C80 20, 65 5, 50 5 Z M25 45 C35 30, 45 40, 40 50 C30 55, 20 50, 25 45 Z" fill="currentColor"/>
-                            <circle cx="35" cy="35" r="5" fill="#475569" />
-                            <circle cx="65" cy="60" r="8" fill="#475569" />
-                            <circle cx="45" cy="70" r="4" fill="#475569" />
-                        </svg>
-                        <div id="stone-size-text" class="mt-4 bg-slate-800 text-white px-4 py-1 rounded-full font-bold text-sm shadow-lg border-2 border-slate-600">
-                            Kalan: 5.0 mm
-                        </div>
-                    </div>
-
-                    <!-- Victory -->
-                    <div id="water-victory" class="absolute z-20 text-center animate-bounce hidden">
-                        <div class="text-6xl mb-4">🏆</div>
-                        <h3 class="text-2xl font-black text-blue-600 drop-shadow-md">Taş Düştü!</h3>
-                        <p class="text-blue-800 font-bold">Hedef Tamamlandı</p>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-[2rem] p-6 shadow-xl mb-6 relative z-10 border border-blue-50">
-                    <div class="flex justify-between items-end mb-6">
-                        <div>
-                            <span id="water-current" class="text-4xl font-black text-blue-500 tracking-tighter">0</span>
-                            <span class="text-blue-300 font-bold ml-1">/ 3000 ml</span>
-                        </div>
-                        <div class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center">
-                            <i data-lucide="droplets" class="text-blue-400 w-6 h-6" fill="currentColor"></i>
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <button onclick="addWater(250)" class="flex-1 bg-blue-100 hover:bg-blue-200 text-blue-700 py-4 rounded-2xl font-bold flex flex-col items-center gap-1 transition-colors">
-                            <span class="text-lg">💧</span><span>+250 ml</span>
-                        </button>
-                        <button onclick="addWater(500)" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-4 rounded-2xl font-bold flex flex-col items-center gap-1 transition-colors shadow-lg shadow-blue-200">
-                            <span class="text-lg">🥤</span><span>+500 ml</span>
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 3: ACTIVITY (Hareket) -->
-            <section id="tab-activity" class="p-6 pb-12 space-y-6 hidden">
-                <div class="mb-2">
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">Gizli Hareket</h2>
-                    <p class="text-slate-500 text-sm">Hayatın içine saklanmış aktiviteler.</p>
-                </div>
-
-                <!-- Ders Modu (Pomodoro) -->
-                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-100 rounded-bl-full -z-10 opacity-50"></div>
-                    <div class="flex justify-between items-start mb-6">
-                        <div>
-                            <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2"><i data-lucide="award" class="text-purple-500 w-4 h-4"></i> Ders Modu</h3>
-                            <p class="text-xs text-slate-500 mt-1 max-w-[200px]">Masa başında insülin direnci artar. 45 dakikada bir uyaracağım.</p>
-                        </div>
-                        <button id="btn-timer" onclick="toggleTimer()" class="w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg transition-transform hover:scale-105 bg-purple-500">
-                            <i data-lucide="play" id="icon-timer" fill="currentColor"></i>
-                        </button>
-                    </div>
-                    <div id="timer-display" class="bg-slate-50 p-4 rounded-2xl flex justify-center items-center font-mono text-5xl font-black text-slate-700 tracking-widest border-2 border-slate-100">
-                        45:00
-                    </div>
-                </div>
-
-                <!-- Seyahat Modu -->
-                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100">
-                    <div class="flex justify-between items-center">
-                        <div class="flex items-center gap-4">
-                            <div id="travel-icon-bg" class="p-3 rounded-2xl bg-slate-100 text-slate-400">
-                                <i data-lucide="map-pin"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-slate-800">Seyahat Modu</h3>
-                                <p class="text-xs text-slate-500 mt-0.5">Otobüs Molası Takibi</p>
-                            </div>
-                        </div>
-                        <button id="btn-travel" onclick="toggleTravelMode()" class="w-14 h-8 rounded-full p-1 transition-colors duration-300 bg-slate-300">
-                            <div id="travel-toggle" class="w-6 h-6 bg-white rounded-full shadow-sm transition-transform duration-300 translate-x-0"></div>
-                        </button>
-                    </div>
-                    <div id="travel-info" class="mt-4 p-3 bg-teal-50 border border-teal-100 rounded-xl text-xs text-teal-700 flex gap-2 hidden">
-                        <span class="text-lg">🚌</span>
-                        <p>GPS aktif. Mola yerinde durulduğunda <b>500 adım</b> hedefin tetiklenecek.</p>
-                    </div>
-                </div>
-
-                <!-- Tasks -->
-                <div class="bg-slate-800 rounded-3xl p-6 text-white shadow-lg">
-                    <div class="flex justify-between items-center mb-4">
-                        <h3 class="font-bold text-lg text-emerald-400 flex items-center gap-2"><i data-lucide="flame" class="w-5 h-5"></i> Haftalık Görevler</h3>
-                        <span class="text-xs bg-slate-700 px-2 py-1 rounded-full text-slate-300">İlerlemeyi Tıkla</span>
-                    </div>
-                    <div class="space-y-3" id="task-list">
-                        <!-- Tasks injected by JS -->
-                    </div>
-                </div>
-            </section>
-
-            <!-- TAB 4: PROFILE (Profil) -->
-            <section id="tab-profile" class="p-6 space-y-6 pb-12 hidden">
-                <div class="mb-2">
-                    <h2 class="text-2xl font-black text-slate-800 tracking-tight">Kritik Değerler</h2>
-                    <p class="text-slate-500 text-sm">Yüzleşme Vakti. Hedeflere ne kadar yakınız?</p>
-                </div>
-
-                <!-- Mood Engine Simulator -->
-                <div class="bg-slate-800 rounded-3xl p-5 shadow-lg border border-slate-700 text-white relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-24 h-24 bg-slate-600 rounded-bl-full opacity-20 pointer-events-none"></div>
-                    <h3 class="font-bold text-sm text-emerald-400 mb-3 flex items-center gap-2"><i data-lucide="wind" class="w-4 h-4"></i> Duygu Motoru Simülasyonu</h3>
-                    <p class="text-xs text-slate-300 mb-4 leading-relaxed">Performansa göre Diyetisyenin ruh halini test et:</p>
-                    <div class="flex gap-2 relative z-10">
-                        <button onclick="testMood('angry')" class="flex-1 py-2 rounded-xl text-xs font-bold transition-all border bg-slate-700 border-transparent text-slate-300 hover:bg-slate-600">😒 Kötü</button>
-                        <button onclick="testMood('neutral')" class="flex-1 py-2 rounded-xl text-xs font-bold transition-all border bg-teal-500/20 border-teal-500 text-teal-300">👩‍⚕️ Normal</button>
-                    </div>
-                </div>
-
-                <!-- Persona Info -->
-                <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-4">
-                    <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center text-rose-500 text-2xl font-bold border-4 border-rose-50">ES</div>
-                    <div>
-                        <h3 class="font-bold text-lg text-slate-800">Esra Sultan</h3>
-                        <p class="text-xs text-slate-500">Boy: 163 cm | Kilo: ~78 kg</p>
-                        <div class="flex gap-1 mt-2 flex-wrap">
-                            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-md font-medium">PCOS</span>
-                            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-md font-medium">İnsülin Direnci</span>
-                            <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded-md font-medium">Gastrit</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lab Stats -->
-                <h3 class="font-bold text-slate-700 ml-2">Laboratuvar Hedefleri</h3>
-                <div class="space-y-4" id="stats-list">
-                    <!-- Injected by JS -->
-                </div>
-
-                <div class="bg-rose-50 p-4 rounded-2xl border border-rose-100 mt-6">
-                    <p class="text-sm text-rose-700 font-medium text-center">"Unutma; bu rakamlar senin kaderin değil, sadece şu anki konumun. Hepsini değiştirebiliriz!"</p>
-                </div>
-            </section>
-        </main>
-
-        <!-- Bottom Navigation -->
-        <nav class="absolute bottom-0 w-full bg-white border-t border-slate-200 px-4 py-4 flex justify-between items-center z-20" style="padding-bottom: max(1rem, env(safe-area-inset-bottom));">
-            <button onclick="switchTab('meals')" id="nav-meals" class="nav-btn flex flex-col items-center gap-1 transition-all duration-300 text-teal-600 scale-110">
-                <div class="bg-teal-50 shadow-md p-2 rounded-xl transition-colors"><i data-lucide="utensils" class="w-6 h-6 stroke-[2.5px]"></i></div>
-                <span class="text-[10px] font-bold">Öğünler</span>
-            </button>
-            <button onclick="switchTab('water')" id="nav-water" class="nav-btn flex flex-col items-center gap-1 transition-all duration-300 text-slate-400 hover:text-slate-600">
-                <div class="p-2 rounded-xl transition-colors"><i data-lucide="droplets" class="w-5 h-5 stroke-[2px]"></i></div>
-                <span class="text-[10px] font-bold">Su/Taş</span>
-            </button>
-            <button onclick="switchTab('activity')" id="nav-activity" class="nav-btn flex flex-col items-center gap-1 transition-all duration-300 text-slate-400 hover:text-slate-600">
-                <div class="p-2 rounded-xl transition-colors"><i data-lucide="activity" class="w-5 h-5 stroke-[2px]"></i></div>
-                <span class="text-[10px] font-bold">Hareket</span>
-            </button>
-            <button onclick="switchTab('profile')" id="nav-profile" class="nav-btn flex flex-col items-center gap-1 transition-all duration-300 text-slate-400 hover:text-slate-600">
-                <div class="p-2 rounded-xl transition-colors"><i data-lucide="user" class="w-5 h-5 stroke-[2px]"></i></div>
-                <span class="text-[10px] font-bold">Profil</span>
-            </button>
-        </nav>
-    </div>
-
-    <!-- MAIN JAVASCRIPT LOGIC -->
-    <script>
-        // --- DATA & CONSTANTS ---
-        const MEALS = [
-            { type: "Sabah", name: "Haşlanmış Yumurtalı Cevizli Yeşillik", desc: "Glisemik indeksi düşük, insülin direncine kalkan!", img: "🥗" },
-            { type: "Sabah", name: "Laktozsuz Sütlü Chia Puding", desc: "Midene dost, enerjisi bol.", img: "🥣" },
-            { type: "Akşam", name: "Fırında Somon ve Roka", desc: "HDL (İyi Kolesterol) için bir numaralı dostumuz.", img: "🐟" },
-            { type: "Akşam", name: "Yeşil Mercimek Yemeği", desc: "Protein deposu, tok tutar.", img: "🍲" },
-            { type: "Ara Öğün", name: "Yarım Elma ve 10 Badem", desc: "Tatlı krizini bastırmak için en doğal çözüm.", img: "🍎" },
-            { type: "Ara Öğün", name: "Sade Kefir", desc: "Bağırsak dostu, tokluk hissi yaratır.", img: "🥛" },
-        ];
-
-        const TOUGH_LOVE_MESSAGES = [
-            "Trigliserid seviyemiz kendi kendine düşmeyecek, o suyu bitirmeliyiz!",
-            "Bugün beni hayal kırıklığına uğratıyorsun, o taşı düşürmek için hareket etmemiz lazımdı.",
-            "Hedeflerden uzaklaşıyoruz. Diyetisyen randevusu alalım, yüzleşme vakti!",
-            "Masa başında çok kaldın! İnsülin direncini kırmak için ayağa kalkma vakti.",
-            "Su içmeyi unuttun mu? Böbreğindeki misafiri ancak böyle gönderebiliriz."
-        ];
-
-        const THEMES = {
-            neutral: { bg: 'bg-rose-50', header: 'bg-white/80', text: 'text-slate-800', accent: 'text-rose-500', avatar: '👩‍⚕️' },
-            happy: { bg: 'bg-fuchsia-100', header: 'bg-fuchsia-50/90', text: 'text-fuchsia-900', accent: 'text-fuchsia-600', avatar: '🥳' },
-            angry: { bg: 'bg-stone-300', header: 'bg-stone-200/90', text: 'text-stone-800', accent: 'text-stone-600', avatar: '😒' }
-        };
-
-        const STATS = [
-            { name: "Trigliserid", current: 325.8, target: "< 150 mg/dL", status: "high", icon: "trending-down", desc: "Çok Yüksek! Karbonhidratı kısmamız şart." },
-            { name: "ALT (Karaciğer)", current: 46.8, target: "< 35 U/L", status: "high", icon: "trending-down", desc: "Karaciğer yorulmuş. Fast-food yasak!" },
-            { name: "HDL (İyi)", current: 27.5, target: "> 50 mg/dL", status: "low", icon: "trending-up", desc: "Çok Düşük! Yürüyüş ve sağlıklı yağlar lazım." },
-            { name: "D Vitamini", current: 21, target: "> 30 ng/mL", status: "low", icon: "trending-up", desc: "Eksik! İlaçlarını aksatma ve güneşe çık." }
-        ];
-
-        const TASKS = [
-            { title: "40 Dk Tempolu Yürüyüş", done: true, day: "Pzt" },
-            { title: "Evde Direnç Egzersizi", done: false, day: "Çar" },
-            { title: "40 Dk Tempolu Yürüyüş", done: false, day: "Cuma" }
-        ];
-
-        // --- STATE VARIABLES ---
-        let activeTab = 'meals';
-        let mealIndex = 0;
-        let water = 0;
-        const targetWater = 3000;
-        let mood = 'neutral';
-        let voiceEnabled = false;
-        
-        let timerActive = false;
-        let timeLeft = 45 * 60; // 45 mins
-        let timerInterval = null;
-        let travelMode = false;
-
-        let cameraStream = null;
-
-        // --- INITIALIZATION ---
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons(); // Initialize Icons
-            checkPushPermission();
-            renderMeal();
-            renderStats();
-            renderTasks();
-            setupSwipe();
-            
-            // Random notifications
-            setInterval(() => {
-                if (Math.random() > 0.7) {
-                    const msg = TOUGH_LOVE_MESSAGES[Math.floor(Math.random() * TOUGH_LOVE_MESSAGES.length)];
-                    showToast(msg);
-                }
-            }, 45000);
-        });
-
-        // --- GLOBAL UI FUNCTIONS ---
-        function switchTab(tabId) {
-            // Hide all tabs
-            ['meals', 'camera', 'water', 'activity', 'profile'].forEach(id => {
-                document.getElementById('tab-' + id).classList.add('hidden');
-            });
-            // Show target
-            document.getElementById('tab-' + tabId).classList.remove('hidden');
-            
-            // Reset nav buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.className = "nav-btn flex flex-col items-center gap-1 transition-all duration-300 text-slate-400 hover:text-slate-600";
-                btn.children[0].className = "p-2 rounded-xl transition-colors";
-                btn.children[0].children[0].setAttribute('class', 'w-5 h-5 stroke-[2px]');
-            });
-            
-            // Activate selected nav button (camera maps to meals)
-            const activeNavId = tabId === 'camera' ? 'meals' : tabId;
-            const activeBtn = document.getElementById('nav-' + activeNavId);
-            activeBtn.className = "nav-btn flex flex-col items-center gap-1 transition-all duration-300 text-teal-600 scale-110";
-            activeBtn.children[0].className = "bg-teal-50 shadow-md p-2 rounded-xl transition-colors";
-            activeBtn.children[0].children[0].setAttribute('class', 'w-6 h-6 stroke-[2.5px]');
-        }
-
-        function setMood(newMood) {
-            mood = newMood;
-            const theme = THEMES[mood];
-            const appContainer = document.getElementById('app-container');
-            const header = document.getElementById('app-header');
-            
-            // Update classes
-            appContainer.className = `w-full max-w-md ${theme.bg} min-h-screen shadow-2xl relative overflow-hidden flex flex-col transition-colors duration-700`;
-            header.className = `${theme.header} ${theme.text} backdrop-blur-md px-6 py-4 flex justify-between items-center shadow-sm z-10 rounded-b-3xl transition-colors duration-700`;
-            document.getElementById('header-subtitle').className = `text-xs ${theme.accent} font-medium`;
-            document.getElementById('header-avatar').innerText = theme.avatar;
-        }
-
-        function testMood(type) {
-            if (type === 'angry') {
-                setMood('angry');
-                speak("İki gündür su içmiyorsun Esra. Rakamlar yalan söylemez, böyle giderse taş büyümeye devam edecek. Kendine gel!", true);
-            } else {
-                setMood('neutral');
-                speak("Her şey yolunda, programa devam edelim.", true);
-            }
-        }
-
-        // --- PUSH & VOICE ---
-        function checkPushPermission() {
-            if ('Notification' in window && Notification.permission === 'default') {
-                document.getElementById('push-banner').classList.remove('hidden');
-            }
-        }
-
-        async function requestPushPermission() {
-            if (!('Notification' in window)) {
-                alert("Tarayıcın bildirimleri desteklemiyor.");
-                return;
-            }
-            const permission = await Notification.requestPermission();
-            if (permission === 'granted') {
-                document.getElementById('push-banner').classList.add('hidden');
-                new Notification("Harika!", { body: "Artık sana arka planda da hesap sorabileceğim!", icon: "👩‍⚕️" });
-            }
-        }
-
-        function toggleVoice() {
-            voiceEnabled = !voiceEnabled;
-            const btn = document.getElementById('btn-voice');
-            const icon = document.getElementById('icon-voice');
-            
-            if(voiceEnabled) {
-                btn.className = "p-2 rounded-full transition bg-teal-100 text-teal-600";
-                icon.setAttribute('data-lucide', 'volume-2');
-                speak("Sesli asistan aktif edildi. Artık seni dinlendireceğim.", true);
-            } else {
-                btn.className = "p-2 rounded-full transition bg-slate-200 text-slate-500";
-                icon.setAttribute('data-lucide', 'volume-x');
-            }
-            lucide.createIcons();
-        }
-
-        function speak(text, forceVoice = false) {
-            if (!voiceEnabled && !forceVoice) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'tr-TR';
-            utterance.rate = mood === 'angry' ? 1.1 : (mood === 'happy' ? 1.0 : 0.9);
-            utterance.pitch = mood === 'angry' ? 0.8 : (mood === 'happy' ? 1.2 : 1.0);
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function showToast(msg, speakText = null) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = msg;
-            toast.classList.remove('hidden');
-            
-            if (speakText || voiceEnabled) speak(speakText || msg);
-            
-            if ('Notification' in window && Notification.permission === 'granted') {
-                new Notification("Diyetisyen Mesajı", { body: msg });
-            }
-
-            setTimeout(() => toast.classList.add('hidden'), 5000);
-        }
-
-        function triggerRandomToughLove() {
-            showToast(TOUGH_LOVE_MESSAGES[2]);
-        }
-
-        function fireConfetti() {
-            const container = document.getElementById('confetti-container');
-            container.innerHTML = '';
-            container.classList.remove('hidden');
-            const colors = ['#d946ef', '#ec4899', '#8b5cf6', '#14b8a6'];
-            
-            for(let i=0; i<25; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'confetti-piece';
-                piece.style.left = `${Math.random() * 100}%`;
-                piece.style.animationDelay = `${Math.random() * 2}s`;
-                piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                container.appendChild(piece);
-            }
-            setTimeout(() => container.classList.add('hidden'), 6000);
-        }
-
-        // --- MEALS MODULE ---
-        function renderMeal() {
-            const meal = MEALS[mealIndex % MEALS.length];
-            document.getElementById('meal-type').innerText = meal.type;
-            document.getElementById('meal-img').innerText = meal.img;
-            document.getElementById('meal-name').innerText = meal.name;
-            document.getElementById('meal-desc').innerText = meal.desc;
-        }
-
-        function setupSwipe() {
-            const card = document.getElementById('swipe-card');
-            let startX = 0;
-            
-            card.addEventListener('touchstart', e => startX = e.changedTouches[0].screenX);
-            card.addEventListener('touchend', e => {
-                const endX = e.changedTouches[0].screenX;
-                if (startX - endX > 50) handleSwipe('left');
-                if (endX - startX > 50) handleSwipe('right');
-            });
-        }
-
-        function handleSwipe(direction) {
-            const card = document.getElementById('swipe-card');
-            // Animate out
-            card.style.transform = direction === 'left' ? 'translateX(-100%) rotate(-20deg)' : 'translateX(100%) rotate(20deg)';
-            card.style.opacity = '0';
-
-            setTimeout(() => {
-                if (direction === 'right') {
-                    handleMealEaten();
-                } else {
-                    mealIndex++;
-                    renderMeal();
-                }
-                
-                // Animate in
-                card.style.transition = 'none';
-                card.style.transform = 'translateY(40px)';
-                setTimeout(() => {
-                    card.style.transition = 'all 0.5s ease-out';
-                    card.style.transform = 'translateY(0)';
-                    card.style.opacity = '1';
-                }, 50);
-            }, 300);
-        }
-
-        function handleMealEaten() {
-            const medModal = document.getElementById('med-reminder');
-            medModal.classList.remove('hidden');
-            speak("Gastrit geçmişin için mideni korumalıyız, İnositol ve D Vitaminini şimdi tok karnına iç!");
-
-            setTimeout(() => {
-                medModal.classList.add('hidden');
-                if (Math.random() > 0.3) {
-                    openCamera();
-                } else {
-                    mealIndex++;
-                    renderMeal();
-                    showToast("Afiyet olsun! Harika bir seçimdi. 😋");
-                }
-            }, 3000);
-        }
-
-        // --- CAMERA & AI MODULE ---
-        async function openCamera() {
-            switchTab('camera');
-            const video = document.getElementById('camera-video');
-            const waiting = document.getElementById('camera-waiting');
-            const viewfinder = document.getElementById('camera-viewfinder');
-            
-            // Reset state
-            document.getElementById('camera-preview').classList.add('hidden');
-            document.getElementById('ai-scanner').classList.add('hidden');
-            document.getElementById('ai-result-modal').classList.add('hidden');
-            document.getElementById('btn-capture').classList.remove('hidden');
-            document.getElementById('btn-confirm-meal').classList.add('hidden');
-            
-            try {
-                cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-                video.srcObject = cameraStream;
-                video.classList.remove('hidden');
-                viewfinder.classList.remove('hidden');
-                waiting.classList.add('hidden');
-            } catch (err) {
-                console.warn("Kamera bulunamadı, simülasyon modu.");
-                waiting.innerHTML = '<i data-lucide="camera" class="w-12 h-12 mb-2 opacity-50"></i> Kamera Simülasyonu';
-                lucide.createIcons();
-            }
-        }
-
-        function capturePhoto() {
-            const video = document.getElementById('camera-video');
-            const canvas = document.getElementById('camera-canvas');
-            const preview = document.getElementById('camera-preview');
-            const scanner = document.getElementById('ai-scanner');
-            
-            document.getElementById('btn-capture').classList.add('hidden');
-            document.getElementById('camera-viewfinder').classList.add('hidden');
-
-            if (cameraStream) {
-                canvas.width = video.videoWidth;
-                canvas.height = video.videoHeight;
-                canvas.getContext('2d').drawImage(video, 0, 0);
-                preview.src = canvas.toDataURL('image/png');
-                video.classList.add('hidden');
-                preview.classList.remove('hidden');
-            } else {
-                // Mock Image handling
-                preview.classList.add('hidden');
-                document.getElementById('camera-waiting').innerHTML = '<div class="text-6xl text-center">🥗<br/><span class="text-xl mt-4 block text-slate-300">Örnek Tabak</span></div>';
-            }
-
-            // AI Scan Simulation
-            scanner.classList.remove('hidden');
-            speak("Fotoğraf alındı. Yapay zeka tabağını analiz ediyor, bekliyoruz.", true);
-            
-            setTimeout(() => {
-                scanner.classList.add('hidden');
-                showAiResult();
-            }, 3000);
-        }
-
-        function showAiResult() {
-            const modal = document.getElementById('ai-result-modal');
-            const title = document.getElementById('ai-result-title');
-            const desc = document.getElementById('ai-result-desc');
-            const dot = document.getElementById('ai-result-dot');
-            const btn = document.getElementById('btn-confirm-meal');
-            const btnText = document.getElementById('confirm-meal-text');
-            
-            modal.classList.remove('hidden');
-            btn.classList.remove('hidden');
-            btn.classList.add('flex');
-
-            const isGood = Math.random() > 0.4;
-            if (isGood) {
-                title.innerText = 'Harika Seçim!';
-                desc.innerText = 'Glisemik indeks uygun, kalori tahmini: 320 kcal. İnsülin direncine dost bir tabak.';
-                dot.className = 'w-3 h-3 rounded-full animate-pulse bg-emerald-500';
-                btn.className = 'px-8 py-4 bg-teal-500 hover:bg-teal-400 text-white rounded-full font-bold shadow-lg flex items-center gap-2 transition-colors';
-                btnText.innerText = 'Onayla ve Ye!';
-                speak("Glisemik indeks harika! Bol lif, uygun protein. Gönül rahatlığıyla yiyebilirsin.", true);
-            } else {
-                title.innerText = 'Dikkatli Ol!';
-                desc.innerText = 'Tabağındaki karbonhidrat yoğunluğu yüksek görünüyor. İnsülini zıplatmamak için porsiyonu küçült!';
-                dot.className = 'w-3 h-3 rounded-full animate-pulse bg-amber-500';
-                btn.className = 'px-8 py-4 bg-amber-500 hover:bg-amber-400 text-white rounded-full font-bold shadow-lg flex items-center gap-2 transition-colors';
-                btnText.innerText = 'Anladım, Dikkat Edeceğim';
-                speak("Dikkat! Karbonhidrat yoğun görünüyor. İnsülini zıplatabilir, yarısını yemeğe ne dersin?", true);
-            }
-        }
-
-        function closeCamera() {
-            if (cameraStream) cameraStream.getTracks().forEach(track => track.stop());
-            cameraStream = null;
-            mealIndex++;
-            renderMeal();
-            switchTab('meals');
-            showToast("Harika! AI onayından geçtik. Afiyet olsun!");
-        }
-
-        // --- WATER MODULE ---
-        function addWater(amount) {
-            const oldWater = water;
-            water = Math.min(water + amount, targetWater);
-            
-            document.getElementById('water-current').innerText = water;
-            const progress = (water / targetWater) * 100;
-            document.getElementById('water-fill').style.height = `${Math.max(10, progress)}%`;
-            
-            const scale = Math.max(0, 1 - (water / targetWater));
-            const stone = document.getElementById('stone-container');
-            stone.style.transform = `scale(${scale || 0.1})`;
-            stone.style.opacity = scale === 0 ? '0' : '1';
-            
-            document.getElementById('stone-size-text').innerText = `Kalan: ${(scale * 5).toFixed(1)} mm`;
-
-            if (water >= targetWater && oldWater < targetWater) {
-                document.getElementById('water-victory').classList.remove('hidden');
-                setMood('happy');
-                fireConfetti();
-                speak("İnanılmaz! Bugün taşı paramparça ettik. Böbreğin sana minnettar, harika gidiyorsun Esra!", true);
-                showToast("İNANILMAZ! Bugün taşı paramparça ettik. Böbreğin sana minnettar! 🥳");
-            }
-        }
-
-        // --- ACTIVITY MODULE ---
-        function formatTime(seconds) {
-            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-            const s = (seconds % 60).toString().padStart(2, '0');
-            return `${m}:${s}`;
-        }
-
-        function toggleTimer() {
-            timerActive = !timerActive;
-            const btn = document.getElementById('btn-timer');
-            const icon = document.getElementById('icon-timer');
-            
-            if (timerActive) {
-                btn.classList.replace('bg-purple-500', 'bg-rose-500');
-                icon.setAttribute('data-lucide', 'pause');
-                
-                timerInterval = setInterval(() => {
-                    timeLeft--;
-                    if (timeLeft <= 0) {
-                        clearInterval(timerInterval);
-                        timerActive = false;
-                        timeLeft = 45 * 60;
-                        btn.classList.replace('bg-rose-500', 'bg-purple-500');
-                        icon.setAttribute('data-lucide', 'play');
-                        lucide.createIcons();
-                        speak("İnsülin uyarısı! Ders süren doldu. Hemen ayağa kalk, 3 dakika esne ve zıpla. Direnci kırıyoruz!", true);
-                        showToast("🚨 İnsülin uyarısı! Ders süren doldu. Hemen ayağa kalk, 3 dakika esne ve zıpla!");
-                    }
-                    document.getElementById('timer-display').innerText = formatTime(timeLeft);
-                }, 1000); // 1 sec
-            } else {
-                btn.classList.replace('bg-rose-500', 'bg-purple-500');
-                icon.setAttribute('data-lucide', 'play');
-                clearInterval(timerInterval);
-            }
-            lucide.createIcons();
-        }
-
-        function toggleTravelMode() {
-            travelMode = !travelMode;
-            const btn = document.getElementById('btn-travel');
-            const toggle = document.getElementById('travel-toggle');
-            const iconBg = document.getElementById('travel-icon-bg');
-            const info = document.getElementById('travel-info');
-
-            if (travelMode) {
-                btn.classList.replace('bg-slate-300', 'bg-teal-500');
-                toggle.classList.add('translate-x-6');
-                iconBg.classList.replace('bg-slate-100', 'bg-teal-100');
-                iconBg.classList.replace('text-slate-400', 'text-teal-600');
-                info.classList.remove('hidden');
-                
-                speak("Kastamonu İstanbul yolculuğu başladı. Otobüstesin biliyorum... Gözlerini kapat Esra, arkana yaslan, 10 derin nefes al. Seni biraz dinlendirelim.", true);
-                setTimeout(() => showToast("📍 Kastamonu-İstanbul yolundayız. Mola yerinde seni yürüteceğim!"), 1000);
-            } else {
-                btn.classList.replace('bg-teal-500', 'bg-slate-300');
-                toggle.classList.remove('translate-x-6');
-                iconBg.classList.replace('bg-teal-100', 'bg-slate-100');
-                iconBg.classList.replace('text-teal-600', 'text-slate-400');
-                info.classList.add('hidden');
-            }
-        }
-
-        function renderTasks() {
-            const list = document.getElementById('task-list');
-            list.innerHTML = TASKS.map((task, idx) => `
-                <div onclick="toggleTask(${idx})" class="cursor-pointer transition-all duration-300 flex items-center gap-3 p-3 rounded-xl border ${task.done ? 'bg-emerald-500/20 border-emerald-500/30' : 'bg-slate-700 border-slate-600 hover:bg-slate-600'}">
-                    <div class="w-6 h-6 rounded-full flex items-center justify-center border-2 transition-colors ${task.done ? 'bg-emerald-500 border-emerald-500 text-slate-900' : 'border-slate-500 text-transparent'}">
-                        <i data-lucide="check" class="w-4 h-4 stroke-[3px]"></i>
-                    </div>
-                    <div class="flex-1">
-                        <p class="text-sm font-bold transition-all ${task.done ? 'text-emerald-300 line-through opacity-70' : 'text-slate-200'}">${task.title}</p>
-                    </div>
-                    <span class="text-xs font-bold text-slate-400 bg-slate-800 px-2 py-1 rounded-md">${task.day}</span>
-                </div>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        function toggleTask(idx) {
-            TASKS[idx].done = !TASKS[idx].done;
-            renderTasks();
-            if (TASKS[idx].done) {
-                speak(`Harika! "${TASKS[idx].title}" görevini tamamladın. Kaslar çalışsın, insülin düşsün!`);
-                showToast(`Harika! "${TASKS[idx].title}" görevini tamamladın. 💪`);
-            }
-        }
-
-        // --- PROFILE MODULE ---
-        function renderStats() {
-            const list = document.getElementById('stats-list');
-            list.innerHTML = STATS.map(stat => {
-                const isHigh = stat.status === 'high';
-                const colorCls = isHigh ? 'text-rose-600 bg-rose-100' : 'text-amber-600 bg-amber-100';
-                const barCls = isHigh ? 'bg-rose-500' : 'bg-amber-500';
-                const width = isHigh ? '85%' : '35%';
-                return `
-                <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-100">
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="font-bold text-slate-800 text-sm">${stat.name}</h4>
-                        <span class="flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-lg ${colorCls}">
-                            ${stat.current} <i data-lucide="${stat.icon}" class="w-4 h-4"></i>
-                        </span>
-                    </div>
-                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden mb-2 relative">
-                        <div class="h-full ${barCls} rounded-full" style="width: ${width}"></div>
-                    </div>
-                    <div class="flex justify-between items-center text-xs">
-                        <p class="text-slate-500 italic mt-1 leading-snug max-w-[70%]">${stat.desc}</p>
-                        <span class="font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded-md whitespace-nowrap">Hedef: ${stat.target}</span>
-                    </div>
-                </div>`;
-            }).join('');
-            lucide.createIcons();
-        }
-    </script>
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="brand">
+          <img src="assets/app-icon.png" alt="Şifâhen logosu">
+          <span>
+            <strong>Şifâhen</strong>
+            <span>Manevi Şifa ve Ruhsal Bakım</span>
+          </span>
+        </div>
+        <p>
+          <a href="privacy-policy.html">Gizlilik Politikası</a>
+          <span aria-hidden="true"> · </span>
+          Manevi destek amacıyla hazırlanmıştır.
+        </p>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>

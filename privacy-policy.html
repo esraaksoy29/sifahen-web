@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Şifâhen — Gizlilik Politikası ve Aydınlatma Metni</title>
+  <meta name="description" content="Şifâhen mobil uygulaması için KVKK ve GDPR uyumlu gizlilik politikası ile aydınlatma metni.">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f8f3ea;
+      --surface: #fffaf2;
+      --text: #112019;
+      --muted: #5f675d;
+      --primary: #254f3b;
+      --line: #ded3c1;
+      --accent: #d7b866;
+      --warn-bg: #f1e8d7;
+      --info-bg: #e9f1ec;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    main {
+      width: min(960px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 48px 0 72px;
+    }
+
+    header {
+      padding: 32px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--surface);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      color: var(--primary);
+    }
+
+    h2 {
+      margin: 44px 0 12px;
+      font-size: 1.4rem;
+      line-height: 1.25;
+      color: var(--primary);
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 6px;
+    }
+
+    h3 {
+      margin: 22px 0 8px;
+      font-size: 1.05rem;
+      color: var(--primary);
+    }
+
+    p, li { font-size: 1rem; }
+
+    a {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .notice {
+      margin-top: 20px;
+      padding: 16px 18px;
+      border-left: 5px solid var(--accent);
+      border-radius: 12px;
+      background: var(--warn-bg);
+      color: var(--text);
+    }
+
+    .summary {
+      margin: 28px 0 0;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--info-bg);
+    }
+
+    .summary h2 {
+      margin-top: 0;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    section { padding: 0 8px; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      font-size: 0.95rem;
+    }
+
+    th, td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--primary);
+      background: #efe5d2;
+      font-weight: 700;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .muted-cell {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    footer {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .anchor-list {
+      margin: 16px 0 0;
+      padding: 14px 18px;
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      background: #fffdf6;
+      font-size: 0.95rem;
+    }
+
+    .anchor-list ol {
+      margin: 8px 0 0 18px;
+      padding: 0;
+      column-count: 2;
+      column-gap: 28px;
+    }
+
+    @media (max-width: 600px) {
+      .anchor-list ol { column-count: 1; }
+    }
+
+    .definition {
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      margin: 8px 0 16px;
+    }
+
+    .definition strong { color: var(--primary); }
+
+    code.inline {
+      padding: 2px 6px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font-size: 0.92em;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Şifâhen</h1>
+      <p class="meta" style="font-size:1.1rem;color:var(--primary);font-weight:600;margin-bottom:14px;">
+        Gizlilik Politikası ve Aydınlatma Metni
+      </p>
+      <p class="meta">Son güncelleme: 8 Mayıs 2026</p>
+      <p class="meta">Yürürlük tarihi: 8 Mayıs 2026</p>
+      <p class="meta">Versiyon: 2.0</p>
+      <p class="meta">Veri sorumlusu: Esra Sultan Aslan (Şifâhen geliştiricisi)</p>
+      <p class="meta">İletişim: <a href="mailto:esraaksoyy34@gmail.com">esraaksoyy34@gmail.com</a></p>
+
+      <div class="notice">
+        <strong>Önemli not:</strong> Şifâhen manevi destek ve farkındalık amacıyla hazırlanmıştır.
+        Tıbbi tanı, tedavi veya psikiyatrik müdahale sunmaz; fetva merci değildir.
+        Klinik tanı ve tedavi için bir uzmana başvurunuz. Acil durumlarda
+        <strong>112</strong>, intihar düşüncesi varlığında <strong>182</strong>,
+        sosyal destek için <strong>183</strong> aranabilir.
+      </div>
+
+      <div class="anchor-list">
+        <strong>İçindekiler</strong>
+        <ol>
+          <li><a href="#ozet">Bir bakışta özet</a></li>
+          <li><a href="#kapsam">Kapsam ve tanımlar</a></li>
+          <li><a href="#sorumlu">Veri sorumlusu kimliği</a></li>
+          <li><a href="#veri-turleri">İşlenen kişisel veri kategorileri</a></li>
+          <li><a href="#ozel-nitelikli">Özel nitelikli kişisel veriler</a></li>
+          <li><a href="#amaclar">İşleme amaçları ve hukuki sebepler</a></li>
+          <li><a href="#yontem">Toplama yöntemleri</a></li>
+          <li><a href="#paylasim">Aktarılan taraflar</a></li>
+          <li><a href="#yurtdisi">Yurt dışına aktarım</a></li>
+          <li><a href="#saklama">Saklama süreleri ve imha</a></li>
+          <li><a href="#guvenlik">Veri güvenliği önlemleri</a></li>
+          <li><a href="#cocuk">Çocukların ve ergenlerin gizliliği</a></li>
+          <li><a href="#saglik">Sağlık verileri ve manevi destek araçları</a></li>
+          <li><a href="#profil">Otomatik öneri ve profilleme</a></li>
+          <li><a href="#yerel-depolama">Yerel depolama ve çerez benzeri teknolojiler</a></li>
+          <li><a href="#haklar">Veri sahibi olarak haklarınız</a></li>
+          <li><a href="#riza-geri">Açık rızanın geri alınması</a></li>
+          <li><a href="#ihlal">Veri ihlali halinde bildirim</a></li>
+          <li><a href="#degisiklik">Politika değişiklikleri</a></li>
+          <li><a href="#iletisim">İletişim ve başvuru yolları</a></li>
+        </ol>
+      </div>
+    </header>
+
+    <section>
+      <div class="summary" id="ozet">
+        <h2 style="font-size:1.3rem;">Bir bakışta özet</h2>
+        <p>
+          Bu özet, uygulama içinde göreceğiniz <strong>Aydınlatma Metni</strong> ile
+          birebir aynı çekirdeği taşır.
+        </p>
+        <ul>
+          <li><strong>Ne işliyoruz:</strong> Hesap bilgisi (Google ile giriş yaparsan ad, e-posta, kullanıcı kimliği), uygulama içi tercihlerin (favori, dinleme geçmişi, ayarlar), kendi yazdığın günlük/muhâsebe kayıtları, ruh hâli seçimlerin, tarama (PHQ‑2/GAD‑2) yanıtların, izin verirsen yaklaşık konum, çökme kayıtları.</li>
+          <li><strong>Niye işliyoruz:</strong> Uygulamanın çalışması, deneyimin senin tercihlerine göre sürmesi, namaz vakitlerinin konumuna göre gösterilmesi, hatalı çalışma durumunda iyileştirme yapabilmek için.</li>
+          <li><strong>Özel nitelikli sayılan veriler (PHQ‑2/GAD‑2, muhâsebe kayıtları):</strong> Yalnızca açık rızan varsa işlenir. Rıza vermek istemezsen tarama olmadan da uygulamayı kullanabilirsin.</li>
+          <li><strong>Kimlerle paylaşılır:</strong> Yalnızca uygulamanın çalışması için zorunlu hizmet sağlayıcılar — Google Firebase (kimlik doğrulama ve senkron), Al Quran Cloud (tilavet sesi). Verilerin satılmaz.</li>
+          <li><strong>Hesabını sileceğin zaman:</strong> Uygulamanın <em>Ayarlar → Hesap → Hesabımı Sil</em> bölümünden tek dokunuşla, geri alınamayacak şekilde tüm bulut ve cihaz verilerini silebilirsin.</li>
+          <li><strong>Sorularını nereye yöneltirsin:</strong> <a href="mailto:esraaksoyy34@gmail.com">esraaksoyy34@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <h2 id="kapsam">1. Kapsam ve tanımlar</h2>
+      <p>
+        Bu metin, Şifâhen mobil uygulamasını (bundan sonra <em>"Uygulama"</em>) kullanırken
+        kişisel verilerinizin nasıl işlendiğini açıklar. 6698 sayılı Kişisel Verilerin
+        Korunması Kanunu (<strong>KVKK</strong>) madde 10 kapsamında "Aydınlatma Yükümlülüğü"
+        ve madde 11 kapsamında haklarınızın bildirilmesi amacıyla hazırlanmıştır. Avrupa Birliği
+        Genel Veri Koruma Tüzüğü (<strong>GDPR</strong>) kapsamında AB'de bulunan kullanıcılar
+        için de geçerlidir.
+      </p>
+
+      <div class="definition">
+        <strong>Kişisel veri:</strong> Kimliği belirli veya belirlenebilir gerçek kişiye ilişkin her türlü bilgi.<br>
+        <strong>Özel nitelikli kişisel veri:</strong> Sağlık, din, cinsel hayat, biyometrik gibi hassasiyeti yüksek veriler (KVKK m.6).<br>
+        <strong>Veri sorumlusu:</strong> Verilerin işlenme amaçlarını ve araçlarını belirleyen kişi.<br>
+        <strong>Açık rıza:</strong> Belirli bir konuya ilişkin, bilgilendirilmiş ve özgür iradeyle açıklanmış onay.
+      </div>
+
+      <h2 id="sorumlu">2. Veri sorumlusu kimliği</h2>
+      <p>
+        Bu Uygulama tek bir gerçek kişi tarafından geliştirilmektedir. Veri sorumlusu sıfatıyla
+        yetkili kişi:
+      </p>
+      <ul>
+        <li><strong>Ad-soyad:</strong> Esra Sultan Aslan</li>
+        <li><strong>Sıfat:</strong> Şifâhen geliştiricisi (bireysel)</li>
+        <li><strong>İletişim e-postası:</strong> <a href="mailto:esraaksoyy34@gmail.com">esraaksoyy34@gmail.com</a></li>
+        <li><strong>Yanıt süresi:</strong> Başvurularınız KVKK m.13/2 uyarınca en geç <strong>30 gün</strong> içinde sonuçlandırılır.</li>
+      </ul>
+
+      <h2 id="veri-turleri">3. İşlenen kişisel veri kategorileri</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Kategori</th>
+            <th>Örnek veriler</th>
+            <th>Hukuki sebep (KVKK m.5/m.6)</th>
+            <th>Saklama süresi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hesap kimliği</td>
+            <td>Google ile giriş kullanılırsa: ad, e-posta, kullanıcı kimliği (UID)</td>
+            <td>Sözleşmenin kurulması ve ifası — m.5/2-c</td>
+            <td>Hesap aktif olduğu sürece. Hesap silindiğinde 30 gün içinde imha.</td>
+          </tr>
+          <tr>
+            <td>Uygulama içi tercihler</td>
+            <td>Favoriler, dinleme/okuma geçmişi, yer imleri, tema/dil tercihi, hatırlatıcı ayarları</td>
+            <td>Meşru menfaat (deneyim sürekliliği) — m.5/2-f</td>
+            <td>Hesap aktif olduğu sürece. Yerel veriler uygulama silinince cihazdan kaldırılabilir.</td>
+          </tr>
+          <tr>
+            <td>Kullanıcı içerikleri</td>
+            <td>Günlük muhâsebe kayıtları, niyet/intent yazıları, his haritası girdileri, manuel notlar</td>
+            <td><strong>Açık rıza</strong> — m.5/1 ve m.6/2 (özel nitelikli olabilir)</td>
+            <td>Kullanıcı silmedikçe hesap süresince. Silme talebi anında imha.</td>
+          </tr>
+          <tr>
+            <td>Sağlık ve iyi oluş verileri</td>
+            <td>PHQ‑2 / GAD‑2 tarama yanıtları, ruh hâli seçimleri, ClinicalState etiketleri</td>
+            <td><strong>Açık rıza</strong> — m.6/2 (özel nitelikli)</td>
+            <td>Kullanıcı silmedikçe hesap süresince. Tarama yapmamayı seçerseniz toplanmaz.</td>
+          </tr>
+          <tr>
+            <td>Konum verisi</td>
+            <td>Yaklaşık veya hassas konum (sadece izin verirseniz)</td>
+            <td>Açık rıza (cihaz izni) — m.5/1</td>
+            <td>Anlık olarak namaz vakti hesabında kullanılır; sürekli kayıt tutulmaz.</td>
+          </tr>
+          <tr>
+            <td>Teknik veriler</td>
+            <td>Cihaz modeli, OS sürümü, dil, çökme kayıtları, hata günlükleri, anonim kullanım metrikleri</td>
+            <td>Meşru menfaat (güvenlik, hata giderme) — m.5/2-f</td>
+            <td>En çok 90 gün; çökme kayıtları otomatik kısaltılır.</td>
+          </tr>
+          <tr>
+            <td>İletişim verileri</td>
+            <td>Bize yazdığınız e-postalar, başvuru içerikleri</td>
+            <td>Hukuki yükümlülük (KVKK m.13 başvuru cevabı) — m.5/2-ç</td>
+            <td>Yanıt verildikten sonra en çok 12 ay; sonra anonimleştirilir.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 id="ozel-nitelikli">4. Özel nitelikli kişisel veriler — açık rıza şartı</h2>
+      <p>
+        PHQ‑2, GAD‑2 yanıtları, ruh hâli seçimleri, ClinicalState etiketleri ve serbest metin
+        muhâsebe kayıtlarınız KVKK m.6 anlamında <strong>özel nitelikli kişisel veri</strong>
+        kapsamında değerlendirilebilir. Bu veriler <strong>yalnızca uygulama içinde alacağımız
+        ayrı, açık rızanız varsa</strong> işlenir.
+      </p>
+      <ul>
+        <li>İlk kullanım sırasında size ayrı bir ekranda açık rıza sorulur.</li>
+        <li><strong>Rıza vermemek</strong> uygulamayı kullanmanıza engel değildir; tarama
+            olmadan, sadece dinleme ve okuma özellikleriyle devam edebilirsiniz.</li>
+        <li>Verdiğiniz rızayı dilediğiniz an, hiçbir gerekçe göstermeksizin
+            <em>Ayarlar → Gizlilik → Sağlık verisi rızasını geri çek</em> yolundan
+            geri alabilirsiniz. Geri çekme, geçmişe etki etmez ancak ilgili veri grubu
+            o andan itibaren işlenmez ve kayıtlı verileriniz 30 gün içinde imha edilir.</li>
+      </ul>
+
+      <h2 id="amaclar">5. İşleme amaçları ve hukuki sebepler</h2>
+      <p>Verileriniz aşağıdaki amaçlar için işlenir:</p>
+      <ul>
+        <li>Uygulamanın temel işlevlerini (Kur'an dinleme, okuma, hatırlatıcı, ruh hâli takibi) sunmak.</li>
+        <li>Kaldığınız yerden devam etmenizi ve cihazlar arası senkronizasyonu sağlamak.</li>
+        <li>Konum izni verirseniz namaz vakitlerini bulunduğunuz yere göre hesaplamak.</li>
+        <li>Açık rızanızla, mood ve tarama girdilerinize uygun manevi içerik (ayet, dua, klasik metin) önermek.</li>
+        <li>Güvenlik açıklarını ve teknik hataları gidermek, performansı iyileştirmek.</li>
+        <li>Yasal yükümlülükler ve Google Play politikalarına uyum sağlamak.</li>
+        <li>Acil durum içeriği ve klinik güvenlik bariyerlerini (kriz ekranı, niyet check‑in, kompulsif kullanım uyarısı) çalıştırmak.</li>
+      </ul>
+      <p>
+        Hiçbir veri reklam, üçüncü taraf pazarlama, profil satışı veya kullanıcı izleme amacıyla
+        işlenmez. Uygulama içinde reklam, üçüncü taraf analitik SDK veya çerez tabanlı izleyici
+        kullanılmamaktadır.
+      </p>
+
+      <h2 id="yontem">6. Toplama yöntemleri</h2>
+      <ul>
+        <li>Uygulamaya doğrudan girdiğiniz seçim ve yazılar yoluyla.</li>
+        <li>Google Sign‑In ile giriş yapmanız halinde Google/Firebase üzerinden.</li>
+        <li>Verdiğiniz cihaz izinleri (konum, bildirim) yoluyla.</li>
+        <li>Otomatik teknik günlükler ve çökme raporları yoluyla.</li>
+      </ul>
+
+      <h2 id="paylasim">7. Aktarılan taraflar</h2>
+      <p>Şifâhen kişisel verilerinizi <strong>satmaz, kiralamaz, reklam ortağına vermez</strong>. Veriler yalnızca aşağıdaki hizmet sağlayıcılarla, hizmet aldığımız ölçüde paylaşılır:</p>
+      <ul>
+        <li><strong>Google Firebase Authentication</strong> — Google ile giriş ve oturum yönetimi.</li>
+        <li><strong>Google Cloud Firestore</strong> — Hesabınıza bağlı tercihler ve cihazlar arası senkron.</li>
+        <li><strong>Google Play / Android Platform</strong> — Uygulama dağıtımı, kararlılık ve güvenlik.</li>
+        <li><strong>Al Quran Cloud (alquran.cloud)</strong> — Tilavet ses dosyalarının ve Arapça metnin sunulması (kullanıcı kimliği aktarılmaz; yalnızca anonim ayet/sûre talebi gönderilir).</li>
+      </ul>
+      <p>
+        Yasal zorunluluk, mahkeme kararı veya yetkili kamu kurumu talebi durumunda KVKK m.5/2-a
+        ve m.5/2-ç uyarınca veriler ilgili merciler ile paylaşılabilir.
+      </p>
+
+      <h2 id="yurtdisi">8. Yurt dışına aktarım (KVKK m.9)</h2>
+      <p>
+        Google Firebase ve Google Cloud altyapısı çoğunlukla Avrupa Birliği ve Amerika Birleşik
+        Devletleri'nde bulunan veri merkezlerini kullanır. Verileriniz, hizmetin çalışması için
+        gerekli olduğu ölçüde bu altyapılara aktarılabilir. Aktarım,
+      </p>
+      <ul>
+        <li>Sözleşmenin ifası (KVKK m.9/2-a) ve</li>
+        <li>açık rızanız (özel nitelikli verilerde) hukuki sebeplerine dayanır.</li>
+      </ul>
+      <p>
+        Google, AB Standart Sözleşme Maddeleri (SCC) ve kendi güvenlik standartları çerçevesinde
+        verileri korur. Detaylı bilgi için Google'ın gizlilik politikasına bakabilirsiniz.
+      </p>
+
+      <h2 id="saklama">9. Saklama süreleri ve imha</h2>
+      <p>
+        Veriler, işleme amacının gerektirdiği süre boyunca saklanır. Yukarıdaki tablo her veri
+        kategorisi için somut süreyi gösterir. Süre dolduğunda veya kullanıcı silme talep
+        ettiğinde:
+      </p>
+      <ul>
+        <li>Bulut (Firestore) verileri en geç 30 gün içinde silinir.</li>
+        <li>Cihazda yerel veriler (Room veritabanı) hesap silindiğinde temizlenir.</li>
+        <li>Yedek kopyalar 90 gün içinde döngüsel olarak imha edilir.</li>
+        <li>Çökme kayıtları 90 günü aşmaz; kişisel tanımlayıcılar otomatik anonimleştirilir.</li>
+      </ul>
+
+      <h2 id="guvenlik">10. Veri güvenliği önlemleri (KVKK m.12)</h2>
+      <p>Aldığımız teknik ve idari önlemler:</p>
+      <ul>
+        <li>Tüm ağ trafiği TLS 1.2+ üzerinden şifrelenir; düz metin (cleartext) bağlantı reddedilir.</li>
+        <li>Uygulama paketi obfuscate edilir; ters mühendisliğe karşı R8/ProGuard koruması uygulanır.</li>
+        <li>Otomatik telefon yedeklerinde hassas veri (sağlık, muhâsebe) hariç tutulur.</li>
+        <li>Firebase güvenlik kuralları (Security Rules) ile her kullanıcı yalnızca kendi verisine erişebilir.</li>
+        <li>Uygulamada üçüncü taraf reklam, analitik veya izleme SDK'sı bulundurulmaz.</li>
+        <li>Hassas API uç noktaları için sertifika sabitleme (certificate pinning) uygulanır.</li>
+      </ul>
+
+      <h2 id="cocuk">11. Çocukların ve ergenlerin gizliliği</h2>
+      <p>
+        Şifâhen <strong>13 yaşın altındaki</strong> kullanıcılara yönelik tasarlanmamıştır.
+        13 yaşın altındaki bir kullanıcıya ait kişisel verinin tarafımıza ulaştığını öğrenirsek
+        veriyi en kısa sürede sileriz.
+      </p>
+      <p>
+        <strong>13–17 yaş arası</strong> kullanıcılar için tarama araçları (PHQ‑2/GAD‑2) klinik
+        olarak yetişkinlere göre farklı yorumlanır. Bu yaş aralığında uygulama,
+      </p>
+      <ul>
+        <li>özel nitelikli veri içeren tarama akışlarını <em>varsayılan olarak</em> devre dışı bırakır,</li>
+        <li>kullanıcının ebeveyn/yasal vasi onayı vermesi durumunda yalnızca temel manevi destek özelliklerini açar,</li>
+        <li>doğum tarihi tutmaz; sadece "13–17" / "18+" yaş aralığını işler.</li>
+      </ul>
+
+      <h2 id="saglik">12. Sağlık verileri ve manevi destek araçları</h2>
+      <p>
+        Uygulamada yer alan PHQ‑2, GAD‑2, vesvese / OKB ayrım metinleri, kriz ekranı
+        (CrisisScreen), niyet check‑in, paced breathing, muhâsebe-i nefs ve Murakabe modülleri
+        <strong>tarama, farkındalık ve manevi destek araçları</strong>dır. Tıbbi tanı koymaz,
+        tedavi yerine geçmez, fetva niteliği taşımaz.
+      </p>
+      <p>
+        Acil ihtiyaç hâlinde aşağıdaki ücretsiz hatlar 7/24 hizmet vermektedir:
+      </p>
+      <ul>
+        <li><strong>112</strong> — Acil yardım (sağlık, yangın, güvenlik)</li>
+        <li><strong>182</strong> — Sağlık randevu / intihar önleme yönlendirmesi</li>
+        <li><strong>183</strong> — ALO Sosyal Destek Hattı (kadın, çocuk, aile, engelli)</li>
+        <li><strong>KADES</strong> — Kadına yönelik şiddet acil destek uygulaması</li>
+        <li><strong>YEDAM 0850 222 11 33</strong> — Yeşilay Bağımlılık Danışmanlığı</li>
+      </ul>
+
+      <h2 id="profil">13. Otomatik öneri ve profilleme</h2>
+      <p>
+        Uygulama, seçtiğiniz ruh hâlinden hareketle önceden tanımlanmış kural tablosuna
+        bakarak ayet, dua veya klasik metin önerebilir. Bu, makine öğrenmesi tabanlı bir
+        profilleme <em>değildir</em>; kayıtlı kuralların basit bir eşleştirmesidir. Sonuçlar size
+        yönelik bağlayıcı bir hüküm üretmez. Bu otomatik önerinin sonuçlarına itiraz etme,
+        kapatma veya manuel arama ile içerik bulma hakkınız her zaman saklıdır.
+      </p>
+
+      <h2 id="yerel-depolama">14. Yerel depolama ve çerez benzeri teknolojiler</h2>
+      <p>
+        Şifâhen bir mobil uygulamadır; web çerezleri kullanmaz. Telefonunuzda
+        <code class="inline">SharedPreferences</code> ve <code class="inline">Room</code>
+        veritabanı aracılığıyla tercihlerinizi yerel olarak saklar. Bu yerel veriyi uygulamayı
+        cihazdan kaldırarak silebilirsiniz.
+      </p>
+
+      <h2 id="haklar">15. Veri sahibi olarak haklarınız (KVKK m.11)</h2>
+      <p>
+        KVKK m.11 ve GDPR kapsamında aşağıdaki haklara sahipsiniz. Bu hakları kullanmak için
+        bize <a href="mailto:esraaksoyy34@gmail.com">esraaksoyy34@gmail.com</a> adresinden
+        ulaşabilirsiniz. Talepleriniz <strong>en geç 30 gün</strong> içinde yanıtlanır.
+      </p>
+      <ol>
+        <li>Kişisel verinizin işlenip işlenmediğini öğrenme.</li>
+        <li>İşlenmişse buna ilişkin bilgi talep etme.</li>
+        <li>İşleme amacını ve verilerin amaca uygun kullanılıp kullanılmadığını öğrenme.</li>
+        <li>Yurt içinde veya yurt dışında verilerin aktarıldığı üçüncü kişileri öğrenme.</li>
+        <li>Eksik veya yanlış işlenmiş verilerin düzeltilmesini isteme.</li>
+        <li>KVKK m.7'de öngörülen şartlar çerçevesinde verilerin silinmesini veya yok edilmesini isteme.</li>
+        <li>Düzeltme/silme işlemlerinin verilerin aktarıldığı üçüncü kişilere bildirilmesini isteme.</li>
+        <li>Otomatik sistemlerle yapılan değerlendirme sonucu aleyhinize ortaya çıkan duruma itiraz etme.</li>
+        <li>Hukuka aykırı işleme nedeniyle zarara uğramanız hâlinde tazminat talep etme.</li>
+        <li>Açık rızanızı dilediğiniz an geri alma (geri alma geçmişe etki etmez).</li>
+      </ol>
+      <p>
+        Bu haklarınızla ilgili başvurunuz reddedilirse, yanıt yetersiz bulunursa veya 30 gün
+        içinde yanıt verilmezse <strong>Kişisel Verileri Koruma Kurulu'na</strong>
+        (<a href="https://www.kvkk.gov.tr" target="_blank" rel="noopener">kvkk.gov.tr</a>)
+        şikâyette bulunma hakkınız saklıdır.
+      </p>
+
+      <h3>Hesabımı sil — tek dokunuş</h3>
+      <p>
+        Hesabınızı ve tüm bulut verilerinizi silmek için uygulama içindeki
+        <em>Ayarlar → Hesap → Hesabımı Sil</em> bölümünü kullanabilirsiniz. Bu işlem
+        <strong>geri alınamaz</strong>; Firebase'deki tüm kayıtlarınız 30 gün içinde, cihaz
+        üzerindeki yerel veritabanı ise işlem anında silinir. Tercihen e-posta yoluyla da silme
+        talebi gönderebilirsiniz.
+      </p>
+
+      <h2 id="riza-geri">16. Açık rızanın geri alınması</h2>
+      <p>
+        Sağlık verisi açık rızanızı uygulamadaki ayarlardan veya bize yazarak dilediğiniz an
+        geri alabilirsiniz. Geri alma talebinden sonra:
+      </p>
+      <ul>
+        <li>Tarama ve muhâsebe verilerinizin işlenmesi durdurulur.</li>
+        <li>Mevcut özel nitelikli verileriniz 30 gün içinde imha edilir.</li>
+        <li>Uygulamayı tarama olmadan kullanmaya devam edebilirsiniz.</li>
+      </ul>
+
+      <h2 id="ihlal">17. Veri ihlali halinde bildirim</h2>
+      <p>
+        KVKK m.12/5 ve GDPR m.33 uyarınca verilerinizin yetkisiz kişiler tarafından elde
+        edildiğine dair makul şüphe oluşursa,
+      </p>
+      <ul>
+        <li>en kısa sürede ve <strong>en geç 72 saat</strong> içinde Kişisel Verileri Koruma Kuruluna bildirim yapılır;</li>
+        <li>etkilenebilecek kullanıcılara uygulama içi mesaj veya e-posta yoluyla bilgilendirme gönderilir;</li>
+        <li>etkinin azaltılmasına yönelik teknik tedbirler alınır.</li>
+      </ul>
+
+      <h2 id="degisiklik">18. Politika değişiklikleri</h2>
+      <p>
+        Bu metin yasal değişiklikler veya yeni özellikler nedeniyle güncellenebilir. Önemli
+        değişikliklerde uygulama içinden ve bu sayfa üzerinden bilgilendirme yapılır. Güncel
+        versiyon her zaman bu sayfadaki "Son güncelleme" tarihiyle yayınlanır. Önceki
+        versiyonların özetlenmiş değişiklik kayıtları talep üzerine paylaşılabilir.
+      </p>
+
+      <h2 id="iletisim">19. İletişim ve başvuru yolları</h2>
+      <p>
+        Bu metin, veri işleme faaliyetleri, haklarınızın kullanımı veya silme talepleriyle ilgili
+        her türlü soru ve başvurunuz için:
+      </p>
+      <ul>
+        <li><strong>Veri sorumlusu:</strong> Esra Sultan Aslan</li>
+        <li><strong>E-posta:</strong> <a href="mailto:esraaksoyy34@gmail.com">esraaksoyy34@gmail.com</a></li>
+        <li><strong>Yanıt süresi:</strong> En geç 30 gün</li>
+        <li><strong>Şikâyet mercii:</strong> Kişisel Verileri Koruma Kurulu — <a href="https://www.kvkk.gov.tr" target="_blank" rel="noopener">kvkk.gov.tr</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      Bu Gizlilik Politikası ve Aydınlatma Metni, Şifâhen mobil uygulaması için KVKK m.10
+      kapsamında hazırlanmıştır. Uygulama içinde göreceğiniz Aydınlatma Metni'nin çekirdek
+      içeriği bu metnin "Bir bakışta özet" bölümüyle birebir aynı olacak şekilde
+      güncellenmektedir. © 2026 Şifâhen.
+    </footer>
+  </main>
+</body>
+</html>
